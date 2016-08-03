@@ -29,6 +29,9 @@ typedef struct nodeList{
 }
 nodeList;
 
+
+const bool DEV_MODE = true;
+
 // remove
 nodeList* removeItem(nodeList* list , node* current){
     nodeList * traverse = list;
@@ -366,7 +369,7 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
 
 
 
-int main(void){
+void aStarF(void){
     
  
     // Read inputs
@@ -493,8 +496,23 @@ int main(void){
     }
 
 
-
+    
     aStar( goal ,  start ,  minTradeTime , I , tradeArray ,  K , N , timeArray , maxTradeTime);
 
 
+}
+
+
+void test_mode(void){
+    
+}
+
+
+int main(void){
+    if (DEV_MODE){
+        test_mode();
+    }
+    else
+        aStarF();
+    
 }
