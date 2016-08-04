@@ -365,9 +365,7 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
                 traverse = closedSet;
                 bool flag = false;
                 while (traverse != NULL) {
-
                     if (cmpstates(neighborArray , traverse -> node -> state , I) || sumOfArray < 1){
-                        
                         // neighbor in closed set
                         free(neighborArray);
                         flag = true;
@@ -376,10 +374,8 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
                     traverse = traverse -> next;;
                     if (traverse != NULL) assert(traverse != traverse -> next);
                 }
-                if (flag){
-                ;
-                }
-                else {
+                if (!flag){
+                
                     
                     long long unsigned int tentative_gScore = current -> time + timeArray[i];
                     // if neighbor is not in open set, add neighbor
