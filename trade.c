@@ -533,33 +533,22 @@ void aStarF(void){
 
 }
 
-void read_and_run(char*  inputF){
-     // benchmarks
-    double time_load = 0.0;
-    getrusage(RUSAGE_SELF, &before);
-    aStarF(inputF);
-    getrusage(RUSAGE_SELF, &after);
-    time_load = calculate(&before, &after);
-    printf("Solved in:\t%f\n" , time_load);
-    return;
-}
-
-void test_mode(void){
-    char* input0[] = "input00.txt";
-    char* input6[] = "input06.txt"
-    char* input7[] = "input07.txt"
-
-    aStarF(input0);
-    aStarF(input6);
-    aStarF(input7);
-}
 
 
 int main(void){
+    
+    
     if (DEV_MODE){
-        test_mode();
+        double time_load = 0.0;
+        struct rusage before, after;
+        getrusage(RUSAGE_SELF, &before);
+        aStarF();
+        getrusage(RUSAGE_SELF, &after);
+        time_load = calculate(&before, &after);
+        printf("Solved in:\t%f\n" , time_load);
     }
     else
         aStarF();
-    
+
+
 }
