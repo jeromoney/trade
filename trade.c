@@ -9,6 +9,36 @@
 #include <limits.h>
 #include <assert.h>
 
+#include <sys/resource.h>
+#include <sys/time.h>
+#undef calculate
+#undef getrusage
+
+
+
+// prototype
+double calculate(const struct rusage* b, const struct rusage* a);
+
+/**
+ * Returns number of seconds between b and a.
+ */
+double calculate(const struct rusage* b, const struct rusage* a)
+{
+    if (b == NULL || a == NULL)
+    {
+        return 0.0;
+    }
+    else
+    {
+        return ((((a->ru_utime.tv_sec * 1000000 + a->ru_utime.tv_usec) -
+                 (b->ru_utime.tv_sec * 1000000 + b->ru_utime.tv_usec)) +
+                ((a->ru_stime.tv_sec * 1000000 + a->ru_stime.tv_usec) -
+                 (b->ru_stime.tv_sec * 1000000 + b->ru_stime.tv_usec)))
+                / 1000000.0);
+    }
+}
+
+
 typedef struct node{
     struct node* prevpath;
     long long unsigned int time;
@@ -369,6 +399,7 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
 
 
 
+
 void aStarF(void){
     
  
@@ -474,7 +505,7 @@ void aStarF(void){
             }
         }
     }
-    
+
     
     // Used by heuristic, getting the lowest trade time
     long long unsigned int minTradeTime = minTradeTimef(timeArray , K );
@@ -502,9 +533,25 @@ void aStarF(void){
 
 }
 
+void read_and_run(char*  inputF){
+     // benchmarks
+    double time_load = 0.0;
+    getrusage(RUSAGE_SELF, &before);
+    aStarF(inputF);
+    getrusage(RUSAGE_SELF, &after);
+    time_load = calculate(&before, &after);
+    printf("Solved in:\t%f\n" , time_load);
+    return;
+}
 
 void test_mode(void){
-    
+    char* input0[] = "input00.txt";
+    char* input6[] = "input06.txt"
+    char* input7[] = "input07.txt"
+
+    aStarF(input0);
+    aStarF(input6);
+    aStarF(input7);
 }
 
 
