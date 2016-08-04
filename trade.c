@@ -101,6 +101,7 @@ double calculate(const struct rusage* b, const struct rusage* a)
 }
 
 
+
 typedef struct node{
     struct node* prevpath;
     long long unsigned int time;
@@ -273,28 +274,6 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
     
     //int count = 0;
     while (openSet != NULL){
-        //DEBUG
-        //int dfdsf = GetInt();
-        // //dfdsf =3;
-        // printf("generation: %i\n\n" , count);
-        // nodeList* test = openSet;
-        // int opencount = 0;
-        // while (test != NULL){
-        //     opencount++;
-        //     test = test -> next;
-        // }
-        //  test = closedSet;
-
-        //  int closedcount = 0;
-        // while (test != NULL){
-        //     closedcount++;
-        //     test = test -> next;
-        // }
-        // printf("Open Set: %i   Closed Set: %i\n" , opencount, closedcount);
-        
-        // count++;
-        // END DEBUG
-        
 
         // find node in open set with the lowest fScore
         long long unsigned int minfScore = ULLONG_MAX;
@@ -367,13 +346,13 @@ void aStar(int start[] , int goal[] , long long unsigned int minTradeTime , int 
 
                 
 
-                neighborArray[tradeItem] = neighborArray[tradeItem] + 1;
+                neighborArray[tradeItem]++;
                 if (neighborArray[tradeItem] < 0){
                     ;
                     assert(neighborArray[tradeItem] >= 0);
                 }
-                neighborArray[tradeItem1] = neighborArray[tradeItem1] - 1;
-                neighborArray[tradeItem2] = neighborArray[tradeItem2] - 1;
+                neighborArray[tradeItem1]--;
+                neighborArray[tradeItem2]--;
                 
                 int sumOfArray = 0;
                 for (int someIndex = 0; someIndex < I ; someIndex++){
